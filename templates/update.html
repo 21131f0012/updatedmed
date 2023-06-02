@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Medicine</title>
+</head>
+<body>
+    <form method="POST" action='update'>
+        {% csrf_token %}
+
+        <div>
+            <label for="medicine_name">Medicine Name:</label>
+            <input type="text" name="medicine" value="{{ u.medicine }}">
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" name="price" value="{{ u.price }}">
+        </div>
+        <div>
+            <label for="manufacture_date">Manufacture Date:</label>
+            <input type=date name="manufacture_date" pattern="\d{4}-\d{2}-\d{2}" value="{{ u.manufacture_date }}">
+        </div>
+        <div>
+            <label for="expiry_date">Expiry Date:</label>
+            <input type=date name="expiry" value="{{ u.expiry }}"  >
+        </div>
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" value="{{ u.quantity }}">
+        </div>
+        <button type="submit" name="submit">Update</button>
+    </form>
+</body>
+</html>

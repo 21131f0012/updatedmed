@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    a:link, a:visited {
+      background-color: rgb(51, 51, 122);
+      color: white;
+      padding: 14px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+   
+    </style>
+    </head>
+</head>
+<body>
+    <h1>Order</h1>
+
+    <form method="get" action="product_search">
+        {{ form.as_p }}
+        <input type="text" name='q' placeholder=search >
+        <button type="submit">Search</button>
+    </form>
+    <form method="POST" action="order">
+      {%csrf_token%}
+    <hr>
+    <table id="customers">
+              <tr>
+                <th>chk</th>
+                <th>id</th>
+                <th>medicine</th>
+                <th>price</th>
+                <th>manufacture</th>
+                <th>expiry</th>
+                <th>quantity</th>
+               
+              </tr>
+ 
+
+    {% if products %}
+        <p>Found {{ products|length }} products:</p>
+
+        {% for product in products %}
+        <tr>
+          <td> <input type="checkbox" name="check" value="{{ product.id }}"></td>
+                <td>{{product.id}}</td>
+                <td>{{product.medicine}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.manufacture_date}}</td>
+                <td>{{product.expiry}}</td>
+                <td>{{product.quantity}}</td>
+        </tr>
+        {%endfor%}
+    {% else %}
+        <p>No products found.</p>
+        {% for product in p %}
+        <tr>
+          <td> <input type="checkbox" name="check" value="{{ product.id }}"></td>
+                <td>{{product.id}}</td>
+                <td>{{product.medicine}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.manufacture_date}}</td>
+                <td>{{product.expiry}}</td>
+                <td>{{product.quantity}}</td>
+        
+        </tr>
+        {%endfor%}
+
+    {% endif %}
+      </form>    
+</table><br>
+
+<button>order</button>
+ 
+    
+</body>
+</html>

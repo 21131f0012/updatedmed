@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page</title>
+    
+    <style>
+        #customers {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #customers tr:hover {background-color: #ddd;}
+        
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #04AA6D;
+          color: white;
+        }
+        #customers td a:link, #customers td a:visited {
+          background-color: #f44336;
+          color: white;
+          padding: 14px 25px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        button[type="submit"] {
+            background-color: #3548ec;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+    </style>
+</head>
+<body>
+    <form method="POST" action="submit_form">
+    {%csrf_token%}
+    <h1>Selected Products</h1>
+        <label>customer name:</label>
+        <input type="text" name="customer"><br><br>
+    <div id="selectedProducts"></div>
+        
+    <script>
+        // Retrieve the selectedProducts array from localStorage
+        const storedProducts = localStorage.getItem('selectedProducts');
+        const selectedProducts = JSON.parse(storedProducts);
+
+        const selectedProductsDiv = document.getElementById('selectedProducts');
+
+        // Check if there are selected products
+        if (selectedProducts && selectedProducts.length > 0) {
+            // Create a table to display the selected products
+            const table = document.createElement('table');
+            table.id = 'customers';
+            table.innerHTML = `
+                <tr>
+                    <th>ID</th>
+                    <th>Medicine</th>
+                    <th>Price</th>
+                    <th>Manufacture Date</th>
+                    <th>Expiry</th>
+                    <th>Quantity</th>
+                </tr>
+            `;
+
+            // Iterate over the selectedProducts array and add rows to the table
+            selectedProducts.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.medicine}</td>
+                    <td>${product.price}</td>
+                    <td>${product.manufacture}</td>
+                    <td>${product.expiry}</td>
+                    <td><input type="number" name="quantity_${product.id}" value="${product.quantity}" min="1"></td>
+    
+                `;
+                table.appendChild(row);
+            });
+
+            // Append the table to the selectedProductsDiv
+            selectedProductsDiv.appendChild(table);
+        } else {
+            selectedProductsDiv.textContent = 'No products selected.';
+        }
+    </script>
+    <br>
+    <button type=submit>Order</button>
+</form>
+</body>
+</html> 

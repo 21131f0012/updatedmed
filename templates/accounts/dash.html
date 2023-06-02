@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      
+      grid-gap: 20px;
+      padding: 20px;
+    }
+    
+    .card {
+      background-color: #f1f1f1;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, .8, 0, .8);
+    }
+    
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+    
+    .card p {
+      margin-bottom: 0;
+      color: #666;
+    }
+     .card:nth-child(1) {
+      background-color: #ff8080; /* Light red */
+    }
+    
+    .card:nth-child(2) {
+      background-color: #80b3ff; /* Light blue */
+    }
+    
+    .card:nth-child(3) {
+      background-color: #b3ffb3; /* Light green */
+    }
+    
+    .card:nth-child(4) {
+      background-color: #ffff80; /* Light yellow */
+    }
+
+    .topnav{
+      background-color:black;
+      overflow: hidden;
+      display:block;
+    }
+    .topnav a {
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding:14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    
+    /* Change the color of links on hover */
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    
+    /* Add a color to the active/current link */
+    .topnav a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+    .topnav P{
+      font-family:Apple Chancery, cursive;
+      font-size: 18PX;
+      color:rgb(18, 235, 224);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topnav">
+   
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="accounts/signin">login</a>
+    <h3>merchant dashboard</h3>
+</div><br>
+  <div class="dashboard">
+    <div class="card">
+      <h2>products</h2>
+      <a href="products">product list</a>
+    </div>
+    <div class="card">
+      <h2>Sales</h2>
+      <p>Total sales: $5000</p>
+    </div>
+    <div class="card">
+      <h2>Orders</h2>
+      <p>Total orders: 50</p>
+    </div>
+    <div class="card">
+      <h2>Bill</h2>
+      <p>bill</p>
+    </div>
+  </div>
+</body>
+</html>

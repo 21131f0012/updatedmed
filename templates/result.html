@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+
+ <button> <a href='room_form.html'> add</button>
+  
+  
+  </div>
+      <div>
+      
+      {%for room in rooms%}
+
+
+         <h5>{{room.id}}--<a href="#">{{room.name}}</a> </h5>
+         
+
+      {%endfor%}
+      
+      </div>
+
+
+
+  </div>
+
+{% endblock %}

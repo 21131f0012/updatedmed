@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #customers {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #customers tr:hover {background-color: #ddd;}
+        
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #04AA6D;
+          color: white;
+        }
+        a:link, a:visited {
+          background-color: rgb(51, 51, 122);
+          color: white;
+          padding: 14px 25px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        #searchInput {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 8px;
+          }
+      
+          /* Style for search button */
+          #searchButton {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #493be5;
+            color: white;
+            border: none;
+            cursor: pointer;
+          }
+        
+          .remove-button {
+            background-color: #ff5959;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+          }
+      
+          .remove-button:hover {
+            background-color: #ff3333;
+          }
+
+          .add-button {
+            background-color: #04a6cf;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+          }
+      
+          .add-button:hover {
+            background-color:#04AA6D;
+            
+          }
+
+          .added-button {
+            background-color: #a0a0a0;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: not-allowed;
+            border-radius: 8px;
+          }
+    
+       
+        </style>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Search...">
+<button id="searchButton">Search</button>
+<br>
+<br>
+
+<table id="customers">
+  <tr>
+    <th>id</th>
+    <th>medicine</th>
+    <th>price</th>
+    <th>manufacture</th>
+    <th>expiry</th>
+    <th>quantity</th>
+    <th>action</th>
+  </tr>
+  {% for product in ordered_products %}
+  <tr>
+    <td>{{ product.id }}</td>
+    <td>{{ product.medicine }}</td>
+    <td>{{ product.price }}</td>
+    <td>{{ product.manufacture_date }}</td>
+    <td>{{ product.expiry }}</td>
+    <td>{{ product.quantity }}</td>
+    <td><button class="remove-button">Remove</button> <button class="add-button" data-id="{{ product.id }}">Add</button></td>
+  </tr>
+  {% endfor %}
+</table><br>
+<button type="submit" onclick="submitForm()">Submit</button>
+ </body>
+ <script>
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+
+  // Add click event listener to the search button
+  searchButton.addEventListener('click', () => {
+    const searchTerm = searchInput.value.toLowerCase(); // Get the search term and convert to lowercase
+    searchProducts(searchTerm); // Call the searchProducts function with the search term
+  });
+
+  // Function to search for products and show/hide them based on the search term
+  function searchProducts(searchTerm) {
+    const rows = document.querySelectorAll('#customers tbody tr'); // Get all the rows in the table
+
+    // Loop through each row and check if it matches the search term
+    rows.forEach(row => {
+      const cells = row.getElementsByTagName('td'); // Get all the cells in the current row
+      let found = false; // Flag to indicate if the search term is found in the row
+
+      // Loop through each cell and check if it contains the search term
+      Array.from(cells).forEach(cell => {
+        const cellText = cell.textContent.toLowerCase(); // Get the text content of the cell and convert to lowercase
+        if (cellText.includes(searchTerm)) {
+          found = true;
+          return; // If search term is found, exit the inner loop
+        }
+      });
+
+      // Show or hide the row based on the search term match
+      if (found) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+    // Get the search input and search button elements
+
+
+
+// Add click event listeners to each remove button
+// Get all remove buttons
+const removeButtons = document.querySelectorAll('.remove-button');
+
+// Add click event listeners to each remove button
+removeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const product = button.parentNode.parentNode; // Get the parent div of the clicked button
+    product.remove(); // Remove the product from the DOM
+  });
+});
+
+
+// Add click event listeners to each add button
+let selectedProducts = [];
+
+// Add click event listeners to each add button
+const addButtons = document.querySelectorAll('.add-button');
+
+addButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.id; // Get the product ID from the data attribute
+    const row = button.parentNode.parentNode; // Get the parent row of the clicked button
+    const cells = row.getElementsByTagName('td'); // Get all the cells in the row
+
+    // Extract the data from the cells
+    const id = cells[0].textContent;
+    const medicine = cells[1].textContent;
+    const price = cells[2].textContent;
+    const manufacture = cells[3].textContent;
+    const expiry = cells[4].textContent;
+    const quantity = cells[5].textContent;
+
+    // Create an object with the product data
+    const product = {
+      id,
+      medicine,
+      price,
+      manufacture,
+      expiry,
+      quantity
+    };
+
+    // Add the product to the selectedProducts array
+    selectedProducts.push(product);
+
+    // Store the selectedProducts array in localStorage
+    localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+
+     // Change the button text to "Added"
+     button.textContent = "Added";
+     button.disabled = true; // Disable the button
+ 
+     // Optional: Add a class to change the button's appearance
+     button.classList.add('added-button');
+
+    
+  });
+});
+function submitForm() {
+  event.preventDefault(); // Prevent the default form submission
+  window.location.href = 'newpage'; // Redirect to the new page
+}
+
+  </script>
+  </html>

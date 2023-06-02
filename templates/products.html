@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #493be5;
+  color: white;
+}
+a:link, a:visited {
+  background-color: rgb(51, 51, 122);
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius:18px;
+}
+</style>
+</head>
+<body>
+    <form action="products" method="POST">
+        {% csrf_token %}
+        <table id="customers">
+              <tr>
+                <th>id</th>
+                <th>medicine</th>
+                <th>price</th>
+                <th>manufacture</th>
+                <th>expiry</th>
+                <th>quantity</th>
+                <th>update</th>
+              </tr>
+        {% for product in cont %}
+              <tr>
+                <td>{{product.id}}</td>
+                <td>{{product.medicine}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.manufacture_date}}</td>
+                <td>{{product.expiry}}</td>
+                <td>{{product.quantity}}</td>
+                <td><a href="{{product.id}}/update">edit</td>
+              </tr>  
+              
+              
+        {% endfor %}
+        {% now "m-d-y" as current_date %}
+<p>Today's date is: {{ current_date }}</p>
+<a href="product_search">search</a><br><br>
+
+
+        
+    </table><br><br>
+    <a href="orderby">filter</a>
+    <a href="expi">compare</a>
+    <a href="expiring_soon">30 days</a>
+    <a href="exp_60">60 days</a>
+    <a href="order">order</a>
+    <a href="again">search_jav</a>
+
+
+
+  
+      
+    
+</form>
+</body>
+</html>

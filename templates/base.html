@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Medico</title>
+	<!-- Google Font Family Link Start -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <style>
+        
+		/* Reset Styles */
+		body, h1, h2, h3, h4, h5, h6, p, ul, li, figure {
+			margin: 0;
+			padding: 0;
+		}
+		
+		/* Global Styles */
+		body {
+			font-family: 'Roboto', sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+		
+		.container-fluid {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 15px;
+		}
+		
+		/* Header Styles */
+		#header {
+			background-color: #f8f8f8;
+			padding: 20px 0;
+		}
+		
+		.logo img {
+			max-width: 250px;
+		}
+		
+		.login-option a {
+			margin-left: 10px;
+			font-size: 14px;
+			color: #333;
+			text-decoration: none;
+		}
+		
+		.login-option .badge {
+			background-color: #ffc107;
+			color: #333;
+		}
+		
+		.login-option .btn {
+			margin-top: 15px;
+			height: 28px !important;
+			padding: 2px 1.75em !important;
+		}
+		
+		/* Footer Styles */
+		#footer {
+			background-color: #333;
+			color: #fff;
+			padding: 50px 0;
+		}
+		
+		.widget-title h5 {
+			color: #fff;
+			font-size: 18px;
+			margin-bottom: 20px;
+		}
+		
+		.fieldset {
+			margin-bottom: 20px;
+		}
+		
+		.field-holder input {
+			width: 100%;
+			padding: 10px;
+			border-radius: 3px;
+			border: none;
+		}
+		
+		.field-holder .subscribe-btn {
+			background-color: #ffc107;
+			color: #333;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+		
+		.copy-right p {
+			margin-top: 20px;
+			font-size: 14px;
+		}
+		
+		.copy-right a {
+			color: #ffc107;
+			text-decoration: none;
+		}
+	</style>
+	
+</head>
+
+<body>
+    <!--NAVBAR HERE-->
+        <!--Main Wrapper-->
+<div class="wrapper">
+    <!-- Header Start -->
+    <header id="header">
+        <div class="main-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div class="logo">
+                            <figure>
+                                <a href="#" class="light-logo">
+                                    <img src="{%static 'logo/foodOnlineLogo.png'%}" width="250px" alt="OnlineFoodDelivery">
+                                </a>
+                            </figure>
+                        </div>
+                        
+                        
+                       
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="login-option">
+                            {% if user.is_authenticated %}
+                            <a href="#">
+                                <i class="fa fa-shopping-cart text-danger" style="font-size: 20px; margin-top:15px;"></i>
+                                <span class="badge badge-warning" id="cart_counter" style="border-radius: 50px; position: relative; bottom:10px; left: -5px;">{{cart_count}}</span>
+                            </a>
+                            {% endif %}
+                            <a href="#" class="btn btn-outline-danger text-uppercase font-weight-bold" style="height:28px !important; padding:2px 1.75em !important;" >Marketplace</a>
+                            {% if user.is_authenticated %}
+                                <a class="cs-color cs-popup-joinus-btn btn btn-light font-weight-bold text-uppercase " href="{% url 'accounts:register-Merchant' %}">My Account</a>
+                                <a class="cs-popup-joinus-btn btn btn-danger text-white font-weight-bold text-uppercase" href="{% url 'accounts:signout' %}">Logout</a> 
+
+                            {% else %}
+                                <a class="cs-color cs-popup-joinus-btn login-popup " href="#">Login</a> / <a class="cs-color cs-popup-joinus-btn login-popup ml-0" data-toggle="modal" href="{% url 'accounts:MerchantRegister' %}">Register</a>
+                                <a class="get-start-btn" href="#">Register</a>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+
+    <!--CONTENT HERE -->
+        {% block content%}
+            <!-- content loading -->
+        {% endblock %}
+
+    <!--FOOTER HERE-->
+   
+    <!-- Footer Start -->
+    <footer id="footer" class="footer-style-2">
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget widget-newsletter">
+                            <div class="widget-title">
+                                <h5>Subscribe to our Newsletter</h5>
+                            </div>
+                            <div class="fieldset">
+                                <form action="#">
+                                    <div class="field-holder">
+                                        <label>
+                                            <i class=" icon-envelope3"></i>
+                                            <input type="text" class="field-input" placeholder=" Enter Your Email Address...">
+                                        </label>
+                                    </div>
+                                    <div class="field-holder btn-holder">
+                                        <input class="subscribe-btn bgcolor" type="submit" value="Sign Up">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="copyright-inner">
+                            <div class="copy-right">
+                                <p>© 2023 Medico. All Rights Reserved. Developed By <a href="#">Manoj</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.cs-copyright -->
+    </footer>
+    <!-- Footer End -->
+    </div>
+    
+   
+    </body>
+    
+    </html>
+	
+	
+	

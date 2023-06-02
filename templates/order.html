@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #493be5;
+  color: white;
+}
+a:link, a:visited {
+  background-color: rgb(51, 51, 122);
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius:18px;
+}
+</style>
+</head>
+<body>
+    <form  method="POST">
+        {% csrf_token %}
+        <table id="customers">
+              <tr>
+                <th>id</th>
+                <th>medicine</th>
+                <th>price</th>
+                <th>manufacture</th>
+                <th>expiry</th>
+                <th>quantity</th>
+                <th>action</th>
+                
+              </tr>
+        {% for product in ordered_products %}
+              <tr>
+              
+                <td>{{product.id}}</td>
+                
+                <td>{{product.medicine}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.manufacture_date}}</td>
+                <td>{{product.expiry}}</td>
+                <td><input type="number" name="qt" ></td>
+                 <td> <button class="remove-button">remove</button>   <button class="add-button">Add</button></td>
+
+                
+              </tr>  
+              
+              
+        {% endfor %}
+        {% now "m-d-y" as current_date %}
+
+
+
+        
+    </table><br><br>
+    
+
+
+  
+      
+    
+</form>
+</body>
+<script>
+  // Get all remove buttons
+  const removeButtons = document.querySelectorAll('.remove-button');
+
+  // Add click event listeners to each remove button
+  removeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const row = button.closest('tr'); // Get the closest table row (parent of the button)
+      row.remove(); // Remove the row from the table
+    });
+  });
+
+  const addButtons = document.querySelectorAll('.add-button');
+
+            // Add click event listeners to each add button
+            addButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const row = button.parentNode.parentNode; // Get the table row (parent of the button)
+                    const cells = row.querySelectorAll('td'); // Get all the cells in the row
+
+                    // Collect data from the row
+                    const rowData = Array.from(cells).map(cell => cell.textContent);
+                    const dataToSend = JSON.stringify(rowData);
+
+                    // Save data to local storage
+                    localStorage.setItem('rowData', dataToSend);
+
+                    // Redirect to the next page
+                    window.open('nextpage');
+                });
+            });
+</script>
+
+</html>

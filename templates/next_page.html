@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+    <style>
+        /* CSS styles omitted for brevity */
+    </style>
+</head>
+<body>
+    <h1>Data from Previous Page</h1>
+    <div id="data-container"></div>
+
+    <script>
+        // Retrieve data from local storage
+        const storedData = localStorage.getItem('rowData');
+        const rowData = JSON.parse(storedData);
+
+        // Display data in the container
+        const container = document.getElementById('data-container');
+        const table = document.createElement('table');
+        table.id = 'displayed-data';
+
+        const headerRow = document.createElement('tr');
+        const headerData = ['id', 'medicine', 'price', 'manufacture', 'expiry', 'quantity'];
+        for (const header of headerData) {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        }
+        table.appendChild(headerRow);
+
+        const dataRow = document.createElement('tr');
+        for (const data of rowData) {
+            const td = document.createElement('td');
+            td.textContent = data;
+            dataRow.appendChild(td);
+        }
+        table.appendChild(dataRow);
+
+        container.appendChild(table);
+    </script>
+</body>
+</html>
+

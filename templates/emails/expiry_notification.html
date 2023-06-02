@@ -1,0 +1,13 @@
+{% autoescape off %}
+
+Hi!
+These Medicines are going to expire soon!
+
+{% for product in expiring_products %}
+
+{{forloop.counter}}.{{product.medicine}}
+
+{% endfor %}
+
+
+{% endautoescape %}

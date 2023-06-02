@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Order</title>
+</head>
+<body>
+    <h1>Order</h1>
+
+    <form method="POST" action="{% url 'order' %}">
+        {% csrf_token %}
+        <hr>
+        <table id="customers">
+            <tr>
+                <th>chk</th>
+                <th>id</th>
+                <th>medicine</th>
+                <th>price</th>
+                <th>manufacture</th>
+                <th>expiry</th>
+                <th>quantity</th>
+            </tr>
+
+            {% if products %}
+                <p>Found {{ products|length }} products:</p>
+
+                {% for product in products %}
+                    <tr>
+                        <td> <input type="checkbox" name="check" value="{{ product.id }}"></td>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.medicine }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.manufacture_date }}</td>
+                        <td>{{ product.expiry }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>No products found.</p>
+            {% endif %}
+        </table><br>
+
+        <button type="submit">Order</button>
+    </form>
+</body>
+</html>

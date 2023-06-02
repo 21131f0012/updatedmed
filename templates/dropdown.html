@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sell Medicines</title>
+</head>
+<body>
+    <h1>Sell Medicines</h1>
+    <form method="post" action="{% url 'order' %}">
+        {% csrf_token %}
+        {% if products %}
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Price</th>
+                <th>Manufacture Date</th>
+                <th>Expiry</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in products %}
+                <tr>
+                  <td>{{ product.medicine }}</td>
+                  <td>{{ product.price }}</td>
+                  <td>{{ product.manufacture_date }}</td>
+                  <td>{{ product.expiry }}</td>
+                  <td>
+                    <input type="number" name="quantity" placeholder="Quantity" min="1" max="{{ product.quantity }}">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                  </td>
+                  <td><button type="submit">Order</button></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No products found.</p>
+        {% endif %}
+      </form>
+      
+</body>
+</html>

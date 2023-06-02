@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Product</title>
+</head>
+<body>
+   
+    <h1>Order Product</h1>
+    <p>Product: {{ product }}</p>
+    <form method="POST" action="order">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+        <input type="submit" value="Place Order">
+    </form>
+</body>
+</html>
