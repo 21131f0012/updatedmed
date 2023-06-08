@@ -1,115 +1,227 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medico Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .main-section {
+            margin-top: 0;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            margin-bottom: 0;
+        }
+        
+        .user-dashboard {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        
+        .user-holder {
+            margin-bottom: 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .register-add-restaurant-tab-container {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .field-holder {
+            margin-bottom: 20px;
+        }
+        
+        .field-holder label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .field-holder input[type="text"],
+        .field-holder input[type="email"],
+        .field-holder input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+        }
+        
+        .payment-holder {
+            text-align: right;
+        }
+        
+        .bgcolor {
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .bgcolor:hover {
+            background-color: #45a049;
+        }
+        
+        ul.errorlist {
+            color: red;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul.errorlist li {
+            margin-bottom: 5px;
+        }
 
-{% block content %}
+        /* Rest of the CSS code */
 
-{% load static %}
+.navbar {
+    background-color: #ffffff;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
 
+.logo {
+    height: 40px;
+}
+
+.navbar-nav {
+    list-style-type: none;
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: #000000;
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="medico-logo.png" alt="Medico" class="logo">
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Products</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="register-Merchant" class="nav-link">Login/Register</a></li>
+        </ul>
+    </nav>
     <div class="main-section">
-        <div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 60px;margin-bottom: 0px;">
+        <div class="page-section nopadding cs-nomargin">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="user-dashboard loader-holder">
                             <div class="user-holder">
-                        <h4 class="text-center" style="margin-bottom: 0;">WELCOME TO MEDICO</h4>
-                        <p class="text-center">Please fill this form to get yourself onboarded.</p>
-                        <hr>
-                        
-                        <!--ALERTS START-->
-                        <center>
-                            <ul class="errorlist">
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        {% for error in field.errors %}
-                                            <li style="color: red;">{{error}}</li>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-
-                                <li style="color: red;">{{form.non_field_errors}}</li>
-                            </ul>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <!-- Load message -->
-                                        
-                                    </div>
-                                </div>
-                        </center>
-                        <!--ALERTS END-->
-
-                        <div id="restaurant-sets-holder">
-                            <form action="{% url 'accounts:MerchantRegister' %}" class="form-fields-set " method="post" >
-                                {% csrf_token %}
-                                <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="row">
-                                                    <ul >
-                                                        <li>
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>First name</label>{{form.first_name}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>Last name</label>{{form.last_name}}
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>Email Address</label>{{form.email}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>Username</label>{{form.username}}
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        
-                                                        <li>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>Password</label>
-                                                                    {{form.password}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div class="field-holder">
-                                                                    <label>Confirm Password</label>
-                                                                    {{form.confirm_password}}
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                <h4 class="text-center">WELCOME TO MEDICO</h4>
+                                <p class="text-center">Please fill this form to get yourself onboarded.</p>
+                                <hr>
+                                <!--ALERTS START-->
+                                <center>
+                                    <ul class="errorlist">
+                                        <!-- Error messages will be dynamically added here -->
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <!-- Load message -->
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="field-holder">
-                                                    <div class="payment-holder">
-                                                        <input type="submit" value="Submit" id="btn-next-restaurant-information" class="bgcolor">
+                                    </div>
+                                </center>
+                                <!--ALERTS END-->
+                                <div id="restaurant-sets-holder">
+                                    <form action="{% url 'accounts:MerchantRegister' %}" class="form-fields-set" method="post">
+                                        {% csrf_token %}
+                                        <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="row">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>First name</label>
+                                                                            {{form.first_name}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>Last name</label>
+                                                                            {{form.last_name}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>Email Address</label>
+                                                                            {{form.email}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>Username</label>
+                                                                            {{form.username}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>Password</label>
+                                                                            {{form.password}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                                        <div class="field-holder">
+                                                                            <label>Confirm Password</label>
+                                                                            {{form.confirm_password}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                    </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
+                                            </li>
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="field-holder">
+                                                            <div class="payment-holder">
+                                                                <input type="submit" value="Submit" id="btn-next-restaurant-information" class="bgcolor">
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </li>
+                                                            </ul>
+                                                            </form>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            
+                                                            </body>
+                                                            </html>

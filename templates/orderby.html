@@ -49,7 +49,7 @@ a:link, a:visited {
                 <th>manufacture</th>
                 <th>expiry</th>
                 <th>quantity</th>
-                <th>update</th>
+            
               </tr>
         {% for product in cont %}
               <tr>
@@ -59,7 +59,7 @@ a:link, a:visited {
                 <td>{{product.manufacture_date}}</td>
                 <td>{{product.expiry}}</td>
                 <td>{{product.quantity}}</td>
-                <td><a href="#">edit</td>
+            
               </tr>           
         {% endfor %}
         {% now "m-d-y" as current_date %}

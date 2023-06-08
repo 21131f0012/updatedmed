@@ -50,18 +50,18 @@
             background-color: #45a049;
         }
     </style>
-    
 </head>
 <body>
+    <div class="container">
+        <h1>Add Medicine</h1>
+        <form action="add_medicine" method="POST">
+            {% csrf_token %}
+            <div class="formed">
+                {{ form.as_p }}
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </div>
     
-<div class="container">
-    <h1>Add Medicine</h1>
-    <div class="formed">
-        {{ form.as_p }}
-        <button type="submit">Add</button>
-    </div>
-</div>
-    </form>
-    </div>
 </body>
 </html>

@@ -45,7 +45,7 @@
   </style>
 </head>
 <body>
-  <div class="signin-box">
+  <!-- {% comment %} <div class="signin-box">
     <h2>Signin</h2>
     <form action="{% url 'accounts:signin' %}" method="POST">
 
@@ -54,6 +54,50 @@
       <input type="password" placeholder="Password" name="password" required>
       <button type="submit">Sign In</button>
     </form>
-  </div>
+  </div> {% endcomment %} -->
+
+  <div id="restaurant-sets-holder">
+    <form action="{% url 'accounts:signin' %}" class="form-fields-set foodbakery-dev-restaurant-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
+            <li>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <label>Email address</label>
+                                            <input type="email" name="e-mail" placeholder="Enter your email address">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <label>Password</label>
+                                            <input type="password" name="password" placeholder="Enter your password">
+                                        </div>
+                                    </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="field-holder">
+                            <div class="payment-holder">
+                                <input type="submit" value="Submit" id="btn-next-restaurant-information" class="bgcolor">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+
 </body>
 </html>

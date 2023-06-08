@@ -10,22 +10,6 @@ from django.conf import settings
 from .utils import send_notification
 
 # Create your views here.
-'''
-
-rooms = [
-        {'id':1,'name':'manoj'},
-        {'id':2,'name':'suresh'},
-        {'id':3,'name':'nagesh'},
-]
-def home(request):
-    return render(request,'hello.html')
-
-def add(request):
-    name = request.POST['name']
-    context = {'rooms':rooms}
-    return render(request,'result.html',context)
-
-'''
 def home(request):
     return render(request,"index.html")
 

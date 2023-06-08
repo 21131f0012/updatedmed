@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,86 @@
         </div>
         <div>
             <label for="manufacture_date">Manufacture Date:</label>
-            <input type=date name="manufacture_date" pattern="\d{4}-\d{2}-\d{2}" value="{{ u.manufacture_date }}">
+            <input type=date name="manufacture_date"  value="{{ u.manufacture_date }}">
+        </div>
+        <div>
+            <label for="expiry_date">Expiry Date:</label>
+            <input type=date name="expiry" value="{{ u.expiry }}"  >
+        </div>
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" value="{{ u.quantity }}">
+        </div>
+        <button type="submit" name="submit">Update</button>
+    </form>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Medicine</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action='update'>
+        {% csrf_token %}
+        <h3><center>Update data</center></h3>
+        <div>
+            <label for="medicine_name">Medicine Name:</label>
+            <input type="text" name="medicine" value="{{ u.medicine }}">
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" name="price" value="{{ u.price }}">
+        </div>
+        <div>
+            <label for="manufacture_date">Manufacture Date:</label>
+            <input type=date name="manufacture_date"  value="{{ u.manufacture_date }}">
         </div>
         <div>
             <label for="expiry_date">Expiry Date:</label>
@@ -34,3 +113,4 @@
     </form>
 </body>
 </html>
+

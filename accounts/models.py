@@ -82,3 +82,4 @@ class User(AbstractBaseUser): #this only contain fields and calls methods
         elif self.role == 2:
             user_role = 'Merchant'
         return user_role
+
