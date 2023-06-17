@@ -31,6 +31,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+
+# Other settings...
+
+login_url = 'accounts:signin'
+
+
 
 # Application definition
 
@@ -43,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles','aap',
     'accounts',
     'supplier',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +105,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -139,6 +148,8 @@ STATICFILES_DIRS =[
     os.path.join(BASE_DIR,"static")
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,3 +163,9 @@ EMAIL_HOST_USER = 'mchanti648@gmail.com'
 EMAIL_HOST_PASSWORD = 'beyilodilszcjlkq'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Medico <mchanti648@gmail.com>'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.CustomUserAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Default Django backend
+]
+

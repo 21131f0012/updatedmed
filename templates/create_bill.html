@@ -1,0 +1,25 @@
+<!-- create_bill.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Bill</title>
+</head>
+<body>
+    <h1>Create Bill</h1>
+    <!-- create_bill.html -->
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <fieldset>
+    <legend>Products</legend>
+    {{ product_formset.management_form }}
+    {% for product_form in product_formset %}
+      {{ product_form.as_table }}
+    {% endfor %}
+  </fieldset>
+  <button type="submit">Create Bill</button>
+</form>
+
+      
+</body>
+</html>

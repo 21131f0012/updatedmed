@@ -1,0 +1,28 @@
+<!-- bill_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Detail</title>
+</head>
+<body>
+    <h1>Bill Detail</h1>
+    <h2>Customer: {{ bill.customer }}</h2>
+    <h3>Total Amount: ${{ bill.total_amount }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill_item in bill_items %}
+            <tr>
+                <td>{{ bill_item.product.medicine }}</td>
+                <td>{{ bill_item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -65,7 +65,7 @@
                  <td>{{i.manufacture_date}}
                  <td>{{i.expiry}}</td>
                  <td>{{i.quantity}}</td>
-                 <td><a href="#">delete</a></td>
+                 <td><a href="{%url 'aap:delet' i.id%}">delete</a></td>
                  </tr>
         {%endfor%}
 </body>

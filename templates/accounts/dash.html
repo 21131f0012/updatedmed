@@ -88,21 +88,23 @@
 <body>
   <div class="topnav">
    
-    <a href="#">Home</a>
-    <a href="#">Shop</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-    <a href="accounts/signin">login</a>
-    <h3>merchant dashboard</h3>
+    <a href="{% url 'aap:home' %}">Home</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'accounts:signout' %}">Logout</a>
+        {% else %}
+       < <a href="{% url 'accounts:signin' %}">Login</a>>
+        {% endif %}
+    </div><br>
+    <h3>supplier dashboard</h3>
 </div><br>
   <div class="dashboard">
     <div class="card">
       <h2>products</h2>
-      <a href="products">product list</a>
+      <a href="{% url 'aap:prod' %}">product list</a>
     </div>
     <div class="card">
-      <h2>Sales</h2>
-      <p>Total sales: $5000</p>
+      <h2>Add medicine</h2>
+      <a href="{% url 'aap:add_medicine' %}">Add</a>
     </div>
     <div class="card">
       <h2>Orders</h2>

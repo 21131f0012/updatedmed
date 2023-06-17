@@ -40,6 +40,7 @@ a:link, a:visited {
 </style>
 </head>
 <body>
+  
     <form action="products" method="POST">
         {% csrf_token %}
         <table id="customers">
@@ -60,30 +61,28 @@ a:link, a:visited {
                 <td>{{product.manufacture_date}}</td>
                 <td>{{product.expiry}}</td>
                 <td>{{product.quantity}}</td>
-                <td><a href="{{product.id}}/update">edit</td>
+                <td><a href="{% url 'aap:update' product.id  %}">edit</td>
               </tr>  
               
               
         {% endfor %}
         {% now "m-d-y" as current_date %}
 <p>Today's date is: {{ current_date }}</p>
-<a href="product_search">search</a><br><br>
+<a href="product_search">search</a><br><br> <a href="{% url 'accounts:signout' %}">logout</a>
 
 
         
     </table><br><br>
-    <a href="orderby">filter</a>
-    <a href="expi">compare</a>
-    <a href="expiring_soon">30 days</a>
-    <a href="exp_60">60 days</a>
-    <a href="order">order</a>
-    <a href="again">search_jav</a>
-
-
-
+    <a href="{% url 'aap:orderby'  %}">filter</a>
+    <a href="{% url 'aap:expi'  %}">compare</a>
+    <a href="{% url 'aap:expiring_soon' %}">30 days</a>
+    <a href="{% url 'aap:exp_60' %}">60 days</a>
+    <a href="{% url 'aap:search' %}">search_jav</a>  
   
-      
-    
 </form>
+<input type="text" id="email" style="display:none" name="email">
 </body>
+<script>
+  
+</script>
 </html>

@@ -64,7 +64,8 @@
                 <td>{{i.manufacture_date}}
                 <td>{{i.expiry}}</td>
                 <td>{{i.quantity}}</td>
-                <td><a href="{{i.id}}/delete">delete</a></td>
+                {% comment %} <td><a href="{{i.id}}/delete">delete</a></td> {% endcomment %}
+                <td><a href="{%url 'aap:delet' i.id%}">delete</a></td>
                 </tr>
             {%elif i not in low%}   
             <tr>
@@ -74,7 +75,8 @@
                 <td>{{i.manufacture_date}}</td>
                 <td>{{i.expiry}}</td>
                 <td>{{i.quantity}}</td>
-                <td><a href="/{{i.id}}/delete">delete</a></td>
+                {% comment %} <td><a href="/{{i.id}}/delete">delete</a></td> {% endcomment %}
+                <td><a href="{%url 'aap:delet' i.id%}">delete</a></td>
                 </tr> 
             {%else %}
                 <h5>no medcine that is expired or low</h5>

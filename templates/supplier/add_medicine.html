@@ -54,7 +54,7 @@
 <body>
     <div class="container">
         <h1>Add Medicine</h1>
-        <form action="add_medicine" method="POST">
+        <form action="{% url 'aap:add_medicine' %}" method="POST">
             {% csrf_token %}
             <div class="formed">
                 {{ form.as_p }}

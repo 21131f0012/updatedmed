@@ -26,5 +26,21 @@ class MedicineForm(forms.ModelForm):
 
 
 
+from django import forms
+from django.forms import formset_factory
+
+class ProductForm(forms.Form):
+    product = forms.ModelChoiceField(queryset=products.objects.all())
+    quantity = forms.IntegerField(min_value=1)
+
+ProductFormSet = formset_factory(ProductForm)
+
+class BillForm(forms.Form):
+    customer = forms.CharField(max_length=50)
+    product_formset = ProductFormSet
+
+
+
+
     
 

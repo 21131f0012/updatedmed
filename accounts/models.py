@@ -62,8 +62,8 @@ class User(AbstractBaseUser): #this only contain fields and calls methods
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
 
     objects = UserManager()
 
@@ -82,4 +82,3 @@ class User(AbstractBaseUser): #this only contain fields and calls methods
         elif self.role == 2:
             user_role = 'Merchant'
         return user_role
-

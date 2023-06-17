@@ -1,25 +1,29 @@
 from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
 from django.urls import reverse
-from .models import products
+from .models import products,Bill,BillProduct
 from django.utils import timezone
 from datetime import date,timedelta,datetime
-from .forms import ProductSearchForm,MedicineForm 
+from .forms import ProductSearchForm,MedicineForm
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
 from .utils import send_notification
+from accounts.models import User
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    return render(request,"index.html")
+    return render(request,"hello.html")
 
+@login_required
 def prod(request):
     cont={}
     cont = products.objects.all()
     return render(request,"products.html",{'cont':cont}) 
   
 
-
+@login_required
 def tim(request):
     today = date.today()
     expt = products.objects.filter(expiry__lte =today)
@@ -38,7 +42,7 @@ def delet(request,id):
     product = products.objects.get(pk=id)
 
     product.delete()
-    return redirect(reverse('expi'))
+    return redirect('aap:expi')
 
 def update(request, id):
     u_prod = products.objects.get(pk=id)
@@ -52,7 +56,7 @@ def update(request, id):
         u_prod.save()
         # Convert manufacture_date to the correct format
         #return render(request, 'update.html', {'u': u_prod})
-        return redirect('prod')
+        return redirect('aap:prod')
     else:
         return render(request, 'update.html', {'u': u_prod})
 def success(request):
@@ -85,7 +89,6 @@ def product_detail(request, id):
     # Render the product detail template with the product and warning message
     return render(request, 'product_detail.html', {'product': product, 'warning_message': warning_message})
 
-
 def expiring_products(request):
     # Calculate the date 30 days from today
     thirty_days_from_today = date.today() + timedelta(days=30)
@@ -97,7 +100,6 @@ def expiring_products(request):
     # Render the expiring products template with the list of products
     return render(request, 'expiring_products.html', {'expiring_products': expiring_products})
 
-
 def expiring_soon(request):
     expiring_products = []
     today = timezone.now().date()
@@ -106,15 +108,11 @@ def expiring_soon(request):
         if delta <= timezone.timedelta(days=30):
             expiring_products.append(product)
 
-    mail_subject = "Medicines are low! Be Cautious"
-    mail_template = "emails/expiry_notification.html"
-
+   
     context = {
         'expiring_products': expiring_products,
         'today': today,
-        'to_email':'21131f0012@gvpce.ac.in',
     }
-    send_notification(mail_subject,mail_template,context)
     return render(request, 'expiring_soon.html', context)
 
 
@@ -267,11 +265,58 @@ def insertbysupplier(request):
         if form.is_valid():
             form.save()  # Save the form data to the database
             print(form)
-            return redirect('search')  # Redirect to a view that displays the medicine list
+            return redirect('aap:search')  # Redirect to a view that displays the medicine list
     else:
         form = MedicineForm()
 
     return render(request, 'supplier/add_medicine.html', {'form': form})
+
+
+from django.shortcuts import render, redirect
+from .forms import BillForm
+from .models import Bill, BillProduct, products
+from .forms import BillForm, ProductFormSet
+
+def create_bill(request):
+    if request.method == 'POST':
+        form = BillForm(request.POST)
+        if form.is_valid():
+            customer = form.cleaned_data['customer']
+            product_formset = form.cleaned_data['product_formset']
+            total_amount = 0
+
+            bill = Bill.objects.create(customer=customer, total_amount=0)
+
+            for product_form in product_formset:
+                product = product_form.cleaned_data['product']
+                quantity = product_form.cleaned_data['quantity']
+                price = product.price
+                total_amount += price * quantity
+                BillProduct.objects.create(bill=bill, product=product, quantity=quantity)
+                product.quantity -= quantity
+                product.save()
+
+            bill.total_amount = total_amount
+            bill.save()
+
+            return redirect('bill_detail', bill_id=bill.id)
+    else:
+        form = BillForm()
+        product_formset = ProductFormSet()
+
+    return render(request, 'create_bill.html', {'form': form, 'product_formset': product_formset})
+
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Bill, BillProduct
+
+def bill_detail(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    bill_items = BillProduct.objects.filter(bill=bill)
+    return render(request, 'bill_detail.html', {'bill': bill, 'bill_items': bill_items})
+
 
 
 
